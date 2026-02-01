@@ -86,7 +86,7 @@ while True:
                     if name == "Telegram" and "view in telegram" not in r.text.lower():
                         print(f"{R}[-] {name}: Not found{RE}")
                     else: print(f"{G}[+] {name}: {url}{RE}")
-                elif r.status_code == 404: print(f"{R}[- ] {name}: Not found{RE}")
+                elif r.status_code == 404: print(f"{R}[-] {name}: Not found{RE}")
                 else: print(f"{Y}[!] {name}: Error {r.status_code}{RE}")
             except: print(f"{Y}[!] {name}: Connection failed{RE}")
         print(f"\n{C}Done{RE}")
