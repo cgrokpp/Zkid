@@ -25,17 +25,19 @@ print(f"""
 {RE}   {C}TELEGRAM{RE}: {V}cgrokpp{RE} {C}|{RE} {Y}made in Ukraine{RE}
 """)
 print(f"""
-{R}   [1] DDoS site          [2] Search nickname
+{R} [1]DDoS site            [2]Search nickname
 
-   [3] Hack password      [4] Hack wifi
+ [3]Hack password (Dv)   [4]Hack wifi (Dv)
 
-   [0] Exit{RE}
+ [5]Search IP info       [6]empty func (Dv)
+
+           [0]Exit       [10]Restart{RE}
 """)
 while True:
     select = input(f"{V}Zkid>> {RE}")
-    if select == "0":
+    if select == "0": # 0 EXIT
         exit()
-    elif select == "1":
+    elif select == "1": # 1 FUNC
         import threading
         urlname = input(f"{Y}Site name: {RE}https://")
         url = "https://" + urlname
@@ -61,7 +63,7 @@ while True:
             threads.append(t)
         for t in threads: t.join()
         print(f"\n{C}process end{RE}")
-    elif select == "2":
+    elif select == "2": # 2 FUNC
         nick = input(f"{Y}Enter nickname: {RE}")
         h = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
         print(f"{C}Scanning {nick}...{RE}\n")
@@ -90,3 +92,14 @@ while True:
                 else: print(f"{Y}[!] {name}: Error {r.status_code}{RE}")
             except: print(f"{Y}[!] {name}: Connection failed{RE}")
         print(f"\n{C}Done{RE}")
+    elif select == "5": # 5 FUNC
+        ip = input(f"{Y}Enter IP address: {RE}")
+        print(f"{C}Checking {ip}...{RE}")
+        try:
+            r = req.get(f"http://ip-api.com/json/{ip}").json()
+            if r["status"] == "success":
+                print(f"{G}[+] Country: {r['country']}\n[+] Region: {r['regionName']}\n[+] City: {r['city']}\n[+] ISP: {r['isp']}\n[+] Lat/Lon: {r['lat']}, {r['lon']}{RE}")
+            else: print(f"{R}[-] Invalid IP or no data{RE}")
+        except: print(f"{R}Connection error{RE}")
+    elif select == "10": # 10 RESTART
+        os.system("python Zkid.py")
