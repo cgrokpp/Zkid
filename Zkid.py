@@ -1,6 +1,7 @@
 import time
 import threading
 import os
+os.system("pip install requests")
 import requests as req
 hits = 0
 os.system("clear")
